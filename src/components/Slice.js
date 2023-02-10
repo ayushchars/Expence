@@ -26,8 +26,10 @@ export const { deleteTransaction, addTransaction } = expence.actions;
 const persistedState = localStorage.getItem("expenceState");
 const initialState = persistedState ? JSON.parse(persistedState) : { transaction: [] };
 
-export default function (state = initialState, action) {
+const expenceReducer = (state = initialState, action) => {
     const newState = expence.reducer(state, action);
     localStorage.setItem("expenceState", JSON.stringify(newState));
     return newState;
-}
+};
+
+export default expenceReducer;
