@@ -16,10 +16,18 @@ const expence = createSlice({
         },
         deleteTransaction: (state, action) => {
             const index = state.transaction.findIndex(t => t.id === action.payload);
-            state.transaction.splice(index, 2);
+            state.transaction.splice(index, 1);
         },
     }
-})
+});
 
 export const { deleteTransaction, addTransaction } = expence.actions;
-export default expence.reducer;
+
+const persistedState = localStorage.getItem("expenceState");
+const initialState = persistedState ? JSON.parse(persistedState) : { transaction: [] };
+
+export default function (state = initialState, action) {
+    const newState = expence.reducer(state, action);
+    localStorage.setItem("expenceState", JSON.stringify(newState));
+    return newState;
+}

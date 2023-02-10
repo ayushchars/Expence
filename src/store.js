@@ -3,6 +3,7 @@ import expenceReducer from "./components/Slice"
 const store = configureStore({
     reducer: {
         expence: expenceReducer,
+
     }
 })
 
